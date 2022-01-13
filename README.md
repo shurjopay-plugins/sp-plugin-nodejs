@@ -11,7 +11,7 @@
 
 ```shell
 # npm versions > 5
-npm install spnodejs
+npm i shurjopaynode
 ```
 
 ## Docs/Usage
