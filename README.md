@@ -49,8 +49,9 @@ sp.verify(order_id, (resp_data) => {
 });
 ```
 
-Similarly use `check_status` method.
+Similarly, use `check_status` method.
 
+<!--
 ## Contact
 
 Minhajul Anwar; [resgef.com][resgef-url], Dhaka, Bangladesh.
@@ -64,7 +65,8 @@ Come talk to us on the [GitHub discussion][gh-discussion]
 
 [Twitter](https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fgithub.com%2FMinhajulAnwar&screen_name=MinhajulAnwar) &nbsp;&nbsp;
 [GitHub-Blog](https://minhajme.github.io/blog/) &nbsp;&nbsp;
-<br>[www.resgef.com][resgef-url] &nbsp;&nbsp;
+-->
+<br>[https://resgef.com][resgef-url] &nbsp;&nbsp;
 
 [ff-introsite-gh-pages]: https://freightforward.github.io
 
