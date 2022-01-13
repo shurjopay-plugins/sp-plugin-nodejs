@@ -1,5 +1,10 @@
 module.exports = {
-    root_url: 'https://sandbox.shurjopayment.com/',
+    sandbox: true,
+    get root_url() {
+        let sandbox_url = 'https://sandbox.shurjopayment.com/';
+        let live_url = 'https://live.shurjopayment.com/';
+        return this.sandbox ? sandbox_url : live_url;
+    },
     get token_url() {
         return this.root_url + 'api/get_token';
     },
