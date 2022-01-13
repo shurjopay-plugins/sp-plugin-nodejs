@@ -1,6 +1,6 @@
 # shurjoPay2 integration for nodejs sites
 
-## Ocean Freight, Air Freight
+## Checkout, Verify
 
 - Generate token for merchants
 - perform checkout
