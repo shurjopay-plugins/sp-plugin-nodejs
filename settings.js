@@ -1,5 +1,6 @@
 module.exports = {
     sandbox: true,
+
     get root_url() {
         let sandbox_url = 'https://sandbox.shurjopayment.com/';
         let live_url = 'https://live.shurjopayment.com/';

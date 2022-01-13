@@ -1,5 +1,5 @@
 {
-  "name": "shurjopaynode",
+  "name": "shurjopay",
   "version": "0.7.3",
   "description": "shurjoPay nodejs integration ",
   "main": "index.js",

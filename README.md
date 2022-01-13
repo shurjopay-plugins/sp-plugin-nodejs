@@ -11,7 +11,7 @@
 
 ```shell
 # npm versions > 5
-npm i shurjopaynode
+npm i shurjopay
 ```
 
 ## Docs/Usage

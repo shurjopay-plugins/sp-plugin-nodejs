@@ -9,7 +9,7 @@ function SP() {
     let token_valid_duration = null; //eg. 3600
     let sp_order_id = null;
     this.checkout = function (checkout_params, checkout_callback) {
-        //  get token
+        //  get token first
         axios.post(settings.token_url,
             {username: settings.merchant_username, password: settings.merchant_password})
             .then(function (response) {
