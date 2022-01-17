@@ -1,6 +1,6 @@
 {
   "name": "shurjopay",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "shurjoPay nodejs integration",
   "main": "index.js",
   "scripts": {
