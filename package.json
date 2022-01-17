@@ -1,7 +1,7 @@
 {
   "name": "shurjopay",
-  "version": "0.7.3",
-  "description": "shurjoPay nodejs integration ",
+  "version": "0.8.0",
+  "description": "shurjoPay nodejs integration",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive --exit"
@@ -14,7 +14,7 @@
     "shurjoPay"
   ],
   "author": "MinhajulAnwar",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.24.0",
     "mocha": "^9.1.3",
