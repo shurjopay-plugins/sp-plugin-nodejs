@@ -18,6 +18,11 @@ npm i shurjopay
 
 __Example integration use case scenario is expressCart(https://github.com/mrvautin/expressCart)__
 
+# Postmane Documentations
+
+    This document will illustrate the overall request and response flow.
+    URL : https://documenter.getpostman.com/view/6335853/U16dS8ig
+
 Loading the module gets us a factory function, calling it instantiates the module.
 
 ```javascript
