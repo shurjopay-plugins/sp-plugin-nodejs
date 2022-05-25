@@ -1,11 +1,24 @@
-# shurjoPay2 integration for nodejs sites
+![image](https://user-images.githubusercontent.com/57352037/170198396-932692aa-3354-4cf0-abc1-2b8ef43a6de3.png)
+# ShurjoPay
 
-## Checkout, Verify
+Shurjopay NodeJS integration steps
+## Prerequisite
+To integrate ShurjoPay you need few credentials to access shurjopay:
+```
+:param prefix: Any string not more than 5 characters. It distinguishes the stores of a merchant.
+:param currency: ISO format,(only BDT and USD are allowed).
+:param return_url: Merchant should provide a GET Method return url to verify users initiated transaction status. 
+:param cancel_url: Merchant should provide a cancel url to redirect the user if he/she cancels the transaction in midway. 
+:param client_ip: User's ip
+:param username: Merchant Username provided by shurjopay.
+:param password: Merchant Password provided by shurjopay.
+:param post_address: Live shurjopay version 2 URL.
+```
 
-- Generate token for merchants
-- perform checkout
-- Check order status
-- Verify order id
+
+> 📝 **NOTE** For shurjoPay version 2 live engine integration's all necessary credential will be given to merchant after subscription completed on shurjoPay gateway.
+
+
 
 ## Install
 
@@ -13,15 +26,13 @@
 # npm versions > 5
 npm i shurjopay
 ```
+## Checkout, Verify
 
-## Docs/Usage
+- Generate token for merchants
+- perform checkout
+- Check order status
+- Verify order id
 
-__Example integration use case scenario is expressCart(https://github.com/mrvautin/expressCart)__
-
-__Postman Documentations
-
-    This document will illustrate the overall request and response flow.
-    URL : https://documenter.getpostman.com/view/6335853/U16dS8ig
 
 Loading the module gets us a factory function, calling it instantiates the module.
 
@@ -181,14 +192,17 @@ Come talk to us on the [GitHub discussion][gh-discussion]
 [Twitter](https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fgithub.com%2FMinhajulAnwar&screen_name=MinhajulAnwar) &nbsp;&nbsp;
 [GitHub-Blog](https://minhajme.github.io/blog/) &nbsp;&nbsp;
 -->
-<br>[https://resgef.com][resgef-url] &nbsp;&nbsp;
 
-[ff-introsite-gh-pages]: https://freightforward.github.io
+### Docs/Usage
 
-[ff-doc-gh-pages]: https://freightforward.github.io/docs/
+Example integration use case scenario is expressCart(https://github.com/mrvautin/expressCart)
 
-[gh-discussion]: https://github.com/minhajme/sp2nodejs/discussions
+### Postman Documentations
 
-[dev-gh]: https://github.com/minhajme
+    This document will illustrate the overall request and response flow.
+    URL : https://documenter.getpostman.com/view/6335853/U16dS8ig	
+		
+### Who do I talk to? ###
+	For any technical assistance please contact to: https://shurjopay.com.bd/#contacts
 
-[resgef-url]: https://resgef.com
+
