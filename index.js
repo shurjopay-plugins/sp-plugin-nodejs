@@ -38,6 +38,11 @@ function SP(){
         });
     };
 
+    this.is_live = function () {
+        this.settings.sandbox = false;
+        return true;
+    };
+
     this.configure_merchant = function (merchant_username, merchant_password, merchant_store_id, merchant_key_prefix, merchant_default_currency){
         this.settings.merchant_username = merchant_username;
         this.settings.merchant_password = merchant_password;
