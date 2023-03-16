@@ -1,208 +1,112 @@
-![image](https://user-images.githubusercontent.com/57352037/170198396-932692aa-3354-4cf0-abc1-2b8ef43a6de3.png)
-# ShurjoPay
+# ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png) Nodejs package (plugin)
 
-Shurjopay NodeJS integration steps
-## Prerequisite
-To integrate ShurjoPay you need few credentials to access shurjopay:
+![Made With](https://badgen.net/badge/Made%20with/javascript)
+[![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
+![NPM](https://img.shields.io/npm/l/sp-plugin)
+![version](https://badgen.net/npm/v/shurjopay)
+
+Official shurjoPay nodejs package (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.
+
+This plugin package can be used with any nodejs application or framework .
+
+This plugin package makes it easy for you to integrate with shurjoPay v2.1 with just three method calls:
+
+- checkout()
+- verify()
+- check_status()
+
+Also reduces many of the things that you had to do manually
+
+- Handles http request and errors
+- JSON serialization and deserialization
+- Authentication during checkout and verification of payments
+
+## Audience
+
+This document is intended for the developers and technical personnel of merchants and service providers who want to integrate the shurjoPay online payment gateway using python.
+
+## How to use this shurjoPay Plugin
+
+#### Use `npm` to install this plugin inside your project environment.
+
 ```
-:param prefix: Any string not more than 5 characters. It distinguishes the stores of a merchant.
-:param currency: ISO format,(only BDT and USD are allowed).
-:param return_url: Merchant should provide a GET Method return url to verify users initiated transaction status. 
-:param cancel_url: Merchant should provide a cancel url to redirect the user if he/she cancels the transaction in midway. 
-:param client_ip: User's ip
-:param username: Merchant Username provided by shurjopay.
-:param password: Merchant Password provided by shurjopay.
-:param post_address: Live shurjopay version 2 URL.
-```
-
-
-> 📝 **NOTE** For shurjoPay version 2 live engine integration's all necessary credential will be given to merchant after subscription completed on shurjoPay gateway.
-
-
-
-## Install
-
-```shell
-# npm versions > 5
-npm i shurjopay
-```
-## Checkout, Verify
-
-- Generate token for merchants
-- perform checkout
-- Check order status
-- Verify order id
-
-
-Loading the module gets us a factory function, calling it instantiates the module.
-
-```javascript
-const sp_factory = require('shurjopay');
-const sp = sp_factory();
+npm install shurjopay
 ```
 
-The object provides methods that you need to use are:
+#### Create a .env file inside your project's root directory. Here is a sample .env configuration.
 
-- Payment operation methods: `checkout`, `verify`, `check_status`, `token_valid`.
-- Configuration methods: `configure_merchant`
-- Error handler methods: `gettoken_error_handler`, `checkout_error_handler`
-- Callback handler methods: `checkout_callback`
-- Module's own settings object: `sp.settings`
-- Store session accessor: `sp.session`
+```
+SP_USERNAME=sp_sandbox
+SP_PASSWORD=pyyk97hu&6u6
+SP_PREFIX=sp
+SP_STORE_ID=1
+DEFAULT_CURRENCY
+```
 
-#### In your route controllers, your workflow is (using three routes):
+#### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
-- At checkout->payment method, selecting shurjopay lands the buyer in _checkout_action_ route, where you initiate the transaction with cart details
-- At first configure the shurjopay object to set the merchant info
-- Then set the checkout_return and checkout_cancel callback url
-- Then set the session accessor
-- Then set error handlers, checkout callback
-- Then call the checkout method
+```JavaScript
+const shurjopay = require("shurjopay")();
+require("dotenv").config();
 
-At first, you need to configure the object. The minimum config/environment variables that your site need to maintain(config related to shurjopay) are:
-
-```json
-{
-  "mode": "sandbox",
-  "client_id": "your merchant id",
-  "client_secret": "your merchant password or secret token",
-  "client_store_id": "1",
-  "client_key_prefix": "sp",
-  "currency": "BDT"
+with(process.env){
+  shurjopay.configure_merchant(
+    SP_USERNAME,
+    SP_PASSWORD,
+    SP_STORE_ID,
+    SP_PREFIX,
+    DEFAULT_CURRENCY
+  );
 }
 ```
 
-### An example route controller
+```JavaScript
 
-Check over the example folder.
+  shurjopay.gettoken_error_handler = function (error) {
 
-### Response format examples
+  };
+  shurjopay.checkout_error_handler = function (error) {
 
-#### verify
+  };
 
-```javascript
-response_data =
-    [
-        {
-            id: 3741,
-            order_id: 'sp61e678dd003c6',
-            currency: 'BDT',
-            amount: 500,
-            payable_amount: 500,
-            discsount_amount: null,
-            disc_percent: 0,
-            usd_amt: 0,
-            usd_rate: 0,
-            card_holder_name: null,
-            card_number: null,
-            phone_no: '01534303074',
-            bank_trx_id: '61e678eb',
-            invoice_no: 'sp61e678dd003c6',
-            bank_status: 'Success',
-            customer_order_id: 'c4xyxpytzk00',
-            sp_code: 1000,
-            sp_massage: 'Success',
-            name: 'Minhajul Anwar',
-            email: null,
-            address: '330 NIH BUT DHK',
-            city: 'Dhaka',
-            value1: null,
-            value2: null,
-            value3: null,
-            value4: null,
-            transaction_status: null,
-            method: 'Nagad',
-            date_time: '2022-01-18 14:23:07'
-        }
-    ]
+  shurjopay.checkout({
+            "amount":1000,
+            "order_id":"001",
+            "return_url": "https://sandbox.shurjopayment.com/response",
+            "cancel_url": "https://sandbox.shurjopayment.com/response",
+            "customer_name"="Shanto",
+            "customer_address"="Mohakhali",
+            "customer_phone"="01517162394",
+            "customer_city"="Dhaka",
+            "customer_post_code"="1229",
+  }, (response_data) => {
+
+    });
 
 ```
 
-#### check_status
+#### Payment verification can be done after each transaction with shurjopay order id.
 
-```javascript
-[
-    {
-        id: 3754,
-        order_id: 'sp61e69482835b5',
-        currency: 'BDT',
-        amount: 500,
-        payable_amount: 500,
-        discsount_amount: null,
-        disc_percent: 0,
-        usd_amt: 0,
-        usd_rate: 0,
-        card_holder_name: null,
-        card_number: null,
-        phone_no: '01534303074',
-        bank_trx_id: '61e6948f',
-        invoice_no: 'sp61e69482835b5',
-        bank_status: 'Success',
-        customer_order_id: 'dvijbs4f5s00',
-        sp_code: 1000,
-        sp_massage: 'Success',
-        name: 'Minhajul Anwar',
-        email: null,
-        address: '330 NIH BUT DHK',
-        city: 'Dhaka',
-        value1: null,
-        value2: null,
-        value3: null,
-        value4: null,
-        transaction_status: null,
-        method: 'Nagad',
-        date_time: '2022-01-18 16:21:03'
-    }
-]
-```
+```JavaScript
 
-#### checkout
-
-```javascript
-response_data = {
-    checkout_url: 'https://sandbox.securepay.shurjopayment.com/spaycheckout/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc2FuZGJveC5zaHVyam9wYXltZW50LmNvbVwvYXBpXC9sb2dpbiIsImlhdCI6MTY0MjQ5NTk3MiwiZXhwIjoxNjQyNDk5NTcyLCJuYmYiOjE2NDI0OTU5NzIsImp0aSI6Im1JcEFrNHJPZ1h4TklWVG4iLCJzdWIiOjEsInBydiI6IjgwNWYzOWVlZmNjNjhhZmQ5ODI1YjQxMjI3ZGFkMGEwNzZjNDk3OTMifQ.k_RnbXwWIEc8_NiGgR3c3d0GQhASXv_fjK2S_Wz_Ksw&order_id=sp61e67fe5a7a17',
-    amount: 500,
-    currency: 'BDT',
-    sp_order_id: 'sp61e67fe5a7a17',
-    customer_order_id: 'aobws09sa800',
-    customer_name: 'Minhajul Anwar',
-    customer_address: '330 NIH BUT DHK',
-    customer_city: 'Dhaka',
-    customer_phone: '01534303074',
-    customer_email: null,
-    client_ip: 'unknown',
-    intent: 'sale',
-    transactionStatus: 'Initiated'
-}
+   shurjopay.verify(order_id, (response_data) => {
+   });
 
 ```
 
-<!--
-## Contact
+#### That's all! Now you are ready to use the python plugin to seamlessly integrate with shurjoPay to make your payment system easy and smooth.
 
-Minhajul Anwar; [resgef.com][resgef-url], Dhaka, Bangladesh.
-<br>**Email:** [contact@resgef.com](mailto:contact@resgef.com)
+## References
 
-## Questions or need help?
+1. [Nodejs example application](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/node-app-node-plugin) showing usage of the nodejs plugin.
+2. [Sample applications and projects](https://github.com/shurjopay-plugins/sp-plugin-usage-examples) in many different languages and frameworks showing shurjopay integration.
+3. [shurjoPay Postman site](https://documenter.getpostman.com/view/6335853/U16dS8ig) illustrating the request and response flow using the sandbox system.
+4. [shurjopay Plugins](https://github.com/shurjopay-plugins) home page on github
 
-Come talk to us on the [GitHub discussion][gh-discussion]
+## License
 
-## Social Media and links
+This code is under the [MIT open source License](LICENSE).
 
-[Twitter](https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fgithub.com%2FMinhajulAnwar&screen_name=MinhajulAnwar) &nbsp;&nbsp;
-[GitHub-Blog](https://minhajme.github.io/blog/) &nbsp;&nbsp;
--->
+#### Please [contact](https://shurjopay.com.bd/#contacts) with shurjoPay team for more detail.
 
-### Docs/Usage
-
-Example integration use case scenario is expressCart(https://github.com/mrvautin/expressCart)
-
-### Postman Documentations
-
-    This document will illustrate the overall request and response flow.
-    URL : https://documenter.getpostman.com/view/6335853/U16dS8ig	
-		
-### Who do I talk to? ###
-	For any technical assistance please contact to: https://shurjopay.com.bd/#contacts
-
-
+### Copyright ©️2022 [ShurjoMukhi Limited](https://shurjopay.com.bd/)
