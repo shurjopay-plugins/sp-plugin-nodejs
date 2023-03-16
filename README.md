@@ -74,11 +74,12 @@ with(process.env){
             "order_id":"001",
             "return_url": "https://sandbox.shurjopayment.com/response",
             "cancel_url": "https://sandbox.shurjopayment.com/response",
-            "customer_name"="Shanto",
-            "customer_address"="Mohakhali",
-            "customer_phone"="01517162394",
-            "customer_city"="Dhaka",
-            "customer_post_code"="1229",
+            "customer_name":"Shanto",
+            "customer_address":"Mohakhali",
+             "client_ip": "102.324.0.5",
+            "customer_phone":"01517162394",
+            "customer_city":"Dhaka",
+            "customer_post_code":"1229",
   }, (response_data) => {
 
     });
