@@ -62,13 +62,6 @@ with(process.env){
 
 ```JavaScript
 
-  shurjopay.gettoken_error_handler = function (error) {
-
-  };
-  shurjopay.checkout_error_handler = function (error) {
-
-  };
-
   shurjopay.checkout({
             "amount":1000,
             "order_id":"001",
@@ -76,13 +69,13 @@ with(process.env){
             "cancel_url": "https://sandbox.shurjopayment.com/response",
             "customer_name":"Shanto",
             "customer_address":"Mohakhali",
-             "client_ip": "102.324.0.5",
+            "client_ip": "102.324.0.5",
             "customer_phone":"01517162394",
             "customer_city":"Dhaka",
             "customer_post_code":"1229",
   }, (response_data) => {
-
-    });
+      // TODO handle response from shurjopay and update your system
+  });
 
 ```
 
@@ -91,6 +84,7 @@ with(process.env){
 ```JavaScript
 
    shurjopay.verify(order_id, (response_data) => {
+      // TODO handle response from shurjopay and update your system
    });
 
 ```
@@ -99,7 +93,7 @@ with(process.env){
 
 ## References
 
-1. [Nodejs example application](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/node-app-node-plugin) showing usage of the nodejs plugin.
+1. [Nodejs example application](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/main/node-app-node-plugin) showing usage of the nodejs plugin.
 2. [Sample applications and projects](https://github.com/shurjopay-plugins/sp-plugin-usage-examples) in many different languages and frameworks showing shurjopay integration.
 3. [shurjoPay Postman site](https://documenter.getpostman.com/view/6335853/U16dS8ig) illustrating the request and response flow using the sandbox system.
 4. [shurjopay Plugins](https://github.com/shurjopay-plugins) home page on github
