@@ -7,6 +7,7 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
     return `${timestamp} [${label}] ${level}: ${message}`;
 });
 
+//Tracking error in log file 
 const logger = createLogger({
     format: combine(
         label({ label: 'shurjopay' }),
@@ -15,7 +16,6 @@ const logger = createLogger({
     ),
     transports: [
         new transports.Console(),
-        // TODO integrator may want to provide log destination (folder path)
         new transports.File({ filename: 'shurjopay-plugin.log' })
     ]
 });
@@ -45,6 +45,8 @@ function Shurjopay() {
         return true;
     };
 
+
+    //Getting credentials from merchant as parameter by calling configure_merchant
     this.configure_merchant = function (merchant_username, merchant_password, merchant_store_id, merchant_key_prefix, default_currency) {
         this.settings.merchant_username = merchant_username;
         this.settings.merchant_password = merchant_password;
@@ -52,7 +54,14 @@ function Shurjopay() {
         this.settings.merchant_key_prefix = merchant_key_prefix;
         this.settings.merchant_default_currency = default_currency;
     };
-
+    
+    /**
+     * Return authentication token for shurjoPay payment gateway system.
+     * Setup shurjopay.properties file.
+     *
+     * @return authentication details with valid token
+     * @throws ShurjopayException while merchant username and password is invalid.
+     */
     this.getToken = function (callback) {
         axios.post(this.settings.token_url,
             { username: this.settings.merchant_username, password: this.settings.merchant_password })
@@ -69,6 +78,14 @@ function Shurjopay() {
             });
     };
 
+    /**
+     * This method is used for making payment.
+     *
+     * @param Payment request object. See the shurjoPay version-2 integration documentation(beta).docx for details.
+     * @return Payment response object contains redirect URL to reach payment page,token_details,order_id, form_data to verify order in shurjoPay.
+     * @throws ShurjopayException while merchant username and password is invalid.
+     * @throws ShurjopayPaymentException while {#link PaymentReq} is not prepared properly or {#link HttpClient} exception
+     */
     this.checkout = function (checkout_params, checkout_callback, error_handler) {
         this.getToken((data, token) => {
             axios.post(data.execute_url, {
@@ -94,6 +111,14 @@ function Shurjopay() {
         });
     };
 
+    /**
+     * This method is used for verifying order by order id which could be get by payment response object
+     *
+     * @param orderId
+     * @return order object if order verified successfully
+     * @throws ShurjopayException while merchant user name and password is invalid.
+     * @throws ShurjopayVerificationException while token_type, token, order id is invalid or payment is not initiated properly or {#link HttpClient} exception
+     */
     this.verify = function (order_id, callback, error_handler) {
         this.getToken((data, token, token_type) => {
             axios({
@@ -111,6 +136,14 @@ function Shurjopay() {
         });
     };
 
+    /**
+     * This method is used for verifying order by order id which could be get by payment response object
+     *
+     * @param  orderId
+     * @return order object if order verified successfully
+     * @throws ShurjopayException while merchant user name and password is invalid.
+     * @throws ShurjopayVerificationException while order id is invalid or payment is not initiated properly or {#link HttpClient} exception
+     */
     this.check_status = function (order_id, callback, error_handler) {
         this.getToken((data, token, token_type) => {
             axios({
@@ -127,7 +160,7 @@ function Shurjopay() {
                 });
         });
     };
-
+    //validate token  expiring time
     this.token_valid = function () {
         let create_time_obj = moment(_this.data.sp_token.token_create_time, 'YYYY-MM-DD hh:mm:ssa');
         let dur_seconds = moment().subtract(create_time_obj).format('ss');

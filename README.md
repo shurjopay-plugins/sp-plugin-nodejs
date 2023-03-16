@@ -64,7 +64,7 @@ with(process.env){
 
   shurjopay.checkout({
             "amount":1000,
-            "order_id":"001",
+            "order_id":"nx10t1",
             "return_url": "https://sandbox.shurjopayment.com/response",
             "cancel_url": "https://sandbox.shurjopayment.com/response",
             "customer_name":"Shanto",
@@ -74,8 +74,12 @@ with(process.env){
             "customer_city":"Dhaka",
             "customer_post_code":"1229",
   }, (response_data) => {
-      // TODO handle response from shurjopay and update your system
-  });
+      // Use response_data.checkout_url to get payment
+      // handle response from shurjopay and update your system
+  },
+    (error) => {
+      // handle error if any occurred
+    });
 
 ```
 
@@ -84,8 +88,11 @@ with(process.env){
 ```JavaScript
 
    shurjopay.verify(order_id, (response_data) => {
-      // TODO handle response from shurjopay and update your system
-   });
+      //handle response from shurjopay and update your system
+   },
+    (error) => {
+      // handle error if any occurred
+    });
 
 ```
 
