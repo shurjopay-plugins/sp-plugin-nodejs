@@ -49,6 +49,9 @@ DEFAULT_CURRENCY=BDT
 const shurjopay = require("shurjopay")();
 require("dotenv").config();
 
+  // Call shurjopay.is_live() at live environment
+  // Don't call shurjopay.is_live() at sandbox environment
+
 with(process.env){
   shurjopay.configure_merchant(
     SP_USERNAME,
@@ -88,7 +91,7 @@ with(process.env){
 ```JavaScript
 
    shurjopay.verify(order_id, (response_data) => {
-      //handle response from shurjopay and update your system
+      // handle response from shurjopay and update your system
    },
     (error) => {
       // handle error if any occurred

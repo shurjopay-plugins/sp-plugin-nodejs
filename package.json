@@ -1,6 +1,6 @@
 {
   "name": "shurjopay",
-  "version": "1.0.0",
+  "version": "0.11.1",
   "description": "Official shurjoPay nodejs package (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.",
   "main": "index.js",
   "engines": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/minhajme/shurjopaynode"
+    "url": "https://github.com/shurjopay-plugins/sp-plugin-nodejs"
   },
   "keywords": [
     "shurjopay",
