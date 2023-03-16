@@ -40,7 +40,7 @@ SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_PREFIX=sp
 SP_STORE_ID=1
-DEFAULT_CURRENCY
+DEFAULT_CURRENCY=BDT
 ```
 
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
