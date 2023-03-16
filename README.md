@@ -94,7 +94,7 @@ with(process.env){
 
 ```
 
-#### That's all! Now you are ready to use the python plugin to seamlessly integrate with shurjoPay to make your payment system easy and smooth.
+#### That's all! Now you are ready to use the nodejs plugin to seamlessly integrate with shurjoPay to make your payment system easy and smooth.
 
 ## References
 
