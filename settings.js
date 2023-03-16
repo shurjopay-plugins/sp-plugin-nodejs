@@ -1,7 +1,7 @@
 module.exports = {
     sandbox: true,
     sandbox_url: 'https://sandbox.shurjopayment.com/',
-    live_url: 'https://live.shurjopayment.com/',
+    live_url: 'https://engine.shurjopayment.com/',
     checkout_return_url: '',
     checkout_cancel_url: '',
     merchant_store_id: 1,
