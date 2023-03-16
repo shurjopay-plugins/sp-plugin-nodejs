@@ -46,11 +46,10 @@ DEFAULT_CURRENCY=BDT
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
 ```JavaScript
-const shurjopay = require("shurjopay")();
 require("dotenv").config();
-
-  // Call shurjopay.is_live() at live environment
-  // Don't call shurjopay.is_live() at sandbox environment
+const shurjopay = require("shurjopay")();
+// shurjopay.is_live();  # Needed for live environment
+// NOTE: Do not call is_live() function when you are using the sandbox environment
 
 with(process.env){
   shurjopay.configure_merchant(
@@ -65,24 +64,25 @@ with(process.env){
 
 ```JavaScript
 
-  shurjopay.checkout({
-            "amount":1000,
-            "order_id":"nx10t1",
-            "return_url": "https://sandbox.shurjopayment.com/response",
-            "cancel_url": "https://sandbox.shurjopayment.com/response",
-            "customer_name":"Shanto",
-            "customer_address":"Mohakhali",
-            "client_ip": "102.324.0.5",
-            "customer_phone":"01517162394",
-            "customer_city":"Dhaka",
-            "customer_post_code":"1229",
-  }, (response_data) => {
-      // Use response_data.checkout_url to get payment
-      // handle response from shurjopay and update your system
-  },
-    (error) => {
-      // handle error if any occurred
-    });
+shurjopay.checkout({
+      "amount":1000,
+      "order_id":"nx10t1",
+      "return_url": "https://sandbox.shurjopayment.com/response",
+      "cancel_url": "https://sandbox.shurjopayment.com/response",
+      "customer_name":"Shanto",
+      "customer_address":"Mohakhali",
+      "client_ip": "102.324.0.5",
+      "customer_phone":"01517162394",
+      "customer_city":"Dhaka",
+      "customer_post_code":"1229",
+},
+(response_data) => {
+  // TODO Handle response from shurjopay and update your system
+  // NOTE 'checkout_url' in response_data can be used to redirect consumers to shurjopay landing page
+},
+(error) => {
+  // TODO Handle error response
+});
 
 ```
 
@@ -90,12 +90,12 @@ with(process.env){
 
 ```JavaScript
 
-   shurjopay.verify(order_id, (response_data) => {
-      // handle response from shurjopay and update your system
-   },
-    (error) => {
-      // handle error if any occurred
-    });
+shurjopay.verify(order_id, (response_data) => {
+  // TODO Handle response from shurjopay and update your system
+},
+(error) => {
+  // TODO Handle error response
+});
 
 ```
 
@@ -114,4 +114,4 @@ This code is under the [MIT open source License](LICENSE).
 
 #### Please [contact](https://shurjopay.com.bd/#contacts) with shurjoPay team for more detail.
 
-### Copyright ©️2022 [ShurjoMukhi Limited](https://shurjopay.com.bd/)
+### Copyright ©️2023 [ShurjoMukhi Limited](https://shurjopay.com.bd/)
