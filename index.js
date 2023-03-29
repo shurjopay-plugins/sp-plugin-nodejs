@@ -47,10 +47,9 @@ function Shurjopay() {
 
 
     //Getting credentials from merchant as parameter by calling configure_merchant
-    this.configure_merchant = function (merchant_username, merchant_password, merchant_store_id, merchant_key_prefix, default_currency) {
+    this.configure_merchant = function (merchant_username, merchant_password, merchant_key_prefix, default_currency) {
         this.settings.merchant_username = merchant_username;
         this.settings.merchant_password = merchant_password;
-        this.settings.merchant_store_id = merchant_store_id;
         this.settings.merchant_key_prefix = merchant_key_prefix;
         this.settings.merchant_default_currency = default_currency;
     };
@@ -90,7 +89,7 @@ function Shurjopay() {
         this.getToken((data, token) => {
             axios.post(data.execute_url, {
                 prefix: _this.settings.merchant_key_prefix,
-                store_id: _this.settings.merchant_store_id,
+                store_id: data.store_id,
                 token: token,
                 return_url: checkout_params.return_url,
                 cancel_url: checkout_params.cancel_url,

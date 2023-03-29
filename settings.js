@@ -4,7 +4,6 @@ module.exports = {
     live_url: 'https://engine.shurjopayment.com/',
     checkout_return_url: '',
     checkout_cancel_url: '',
-    merchant_store_id: 1,
     merchant_username: '',
     merchant_password: '',
     merchant_key_prefix: 'sp',

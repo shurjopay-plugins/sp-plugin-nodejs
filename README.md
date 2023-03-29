@@ -39,7 +39,6 @@ npm install shurjopay
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_PREFIX=sp
-SP_STORE_ID=1
 DEFAULT_CURRENCY=BDT
 ```
 
@@ -55,7 +54,6 @@ with(process.env){
   shurjopay.configure_merchant(
     SP_USERNAME,
     SP_PASSWORD,
-    SP_STORE_ID,
     SP_PREFIX,
     DEFAULT_CURRENCY
   );
