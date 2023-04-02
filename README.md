@@ -11,9 +11,9 @@ This plugin package can be used with any nodejs application or framework .
 
 This plugin package makes it easy for you to integrate with shurjoPay v2.1 with just three method calls:
 
-- checkout()
-- verify()
-- check_status()
+- makePayment()
+- verifyPayment()
+- paymentStatus()
 
 Also reduces many of the things that you had to do manually
 
@@ -35,11 +35,13 @@ npm install shurjopay
 
 #### Create a .env file inside your project's root directory. Here is a sample .env configuration.
 
-```
+```JavaScript
+SP_ENDPOINT=https://sandbox.shurjopayment.com
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
-SP_PREFIX=sp
+SP_PREFIX=SP
 DEFAULT_CURRENCY=BDT
+SP_RETURN_URL=https://<your.app.com>/shurjopay-response
 ```
 
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
@@ -47,26 +49,25 @@ DEFAULT_CURRENCY=BDT
 ```JavaScript
 require("dotenv").config();
 const shurjopay = require("shurjopay")();
-// shurjopay.is_live();  # Needed for live environment
-// NOTE: Do not call is_live() function when you are using the sandbox environment
 
 with(process.env){
-  shurjopay.configure_merchant(
+  shurjopay.shurjopay_config(
+    SP_ENDPOINT,
     SP_USERNAME,
     SP_PASSWORD,
     SP_PREFIX,
-    DEFAULT_CURRENCY
+    DEFAULT_CURRENCY,
+    SP_RETURN_URL,
   );
+
 }
 ```
 
 ```JavaScript
 
-shurjopay.checkout({
+shurjopay.makePayment({
       "amount":1000,
       "order_id":"nx10t1",
-      "return_url": "https://sandbox.shurjopayment.com/response",
-      "cancel_url": "https://sandbox.shurjopayment.com/response",
       "customer_name":"Shanto",
       "customer_address":"Mohakhali",
       "client_ip": "102.324.0.5",
@@ -88,7 +89,7 @@ shurjopay.checkout({
 
 ```JavaScript
 
-shurjopay.verify(order_id, (response_data) => {
+shurjopay.verifyPayment(order_id, (response_data) => {
   // TODO Handle response from shurjopay and update your system
 },
 (error) => {
