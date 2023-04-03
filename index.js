@@ -87,13 +87,7 @@ function Shurjopay() {
           token_create_time: response.data.TokenCreateTime, //eg. 2022-01-13 10:55:12am
           token_valid_duration: response.data.expires_in, //eg. 3600
         };
-        callback(
-          response.data,
-          response.data.token,
-          response.data.token_type,
-          response.data.TokenCreateTime,
-          response.data.expires_in
-        );
+        callback(response.data);
       })
       .catch(function (error) {
         _this.log(
@@ -116,28 +110,21 @@ function Shurjopay() {
     checkout_callback,
     error_handler
   ) {
-    this.authentication((data, token) => {
+    this.authentication((data) => {
       axios
         .post(data.execute_url, {
+          ...checkout_params,
           prefix: _this.config_credentials.merchant_key_prefix,
           store_id: data.store_id,
-          token: token,
+          token: data.token,
           return_url: _this.config_credentials.return_url,
           cancel_url: _this.config_credentials.return_url,
-          amount: checkout_params.amount,
-          order_id: checkout_params.order_id,
           currency:
             checkout_params.currency ||
             _this.config_credentials.merchant_default_currency,
-          customer_name: checkout_params.customer_name,
-          customer_address: checkout_params.customer_address,
-          customer_phone: checkout_params.customer_phone,
-          customer_city: checkout_params.customer_city,
-          customer_post_code: checkout_params.customer_post_code,
-          client_ip: checkout_params.client_ip,
         })
         .then(function (response) {
-          checkout_callback(response.data, response.data.checkout_url);
+          checkout_callback(response.data);
         })
         .catch(function (checkout_error) {
           error_handler(checkout_error);
@@ -154,13 +141,13 @@ function Shurjopay() {
    * @throws ShurjopayVerificationException while token_type, token, order id is invalid or payment is not initiated properly or {#link HttpClient} exception
    */
   this.verifyPayment = function (order_id, callback, error_handler) {
-    this.authentication((data, token, token_type) => {
+    this.authentication((data) => {
       axios({
         method: "post",
         url: this.config_credentials.verification_url,
         headers: {
           "content-type": "application/json",
-          Authorization: token_type + " " + token,
+          Authorization: data.token_type + " " + data.token,
         },
         data: { order_id: order_id },
       })
@@ -182,13 +169,13 @@ function Shurjopay() {
    * @throws ShurjopayVerificationException while order id is invalid or payment is not initiated properly or {#link HttpClient} exception
    */
   this.paymentStatus = function (order_id, callback, error_handler) {
-    this.authentication((data, token, token_type) => {
+    this.authentication((data) => {
       axios({
         method: "post",
         url: this.config_credentials.payment_status_url,
         headers: {
           "content-type": "application/json",
-          Authorization: token_type + " " + token,
+          Authorization: data.token_type + " " + data.token,
         },
         data: { order_id: order_id },
       })
