@@ -38,15 +38,15 @@ function Shurjopay() {
     });
   };
 
-  //Getting credentials from merchant as parameter by calling shurjopay_config
-  this.shurjopay_config = function (
+  //Getting credentials from merchant as parameter by calling config
+  this.config = function (
     root_url,
     merchant_username,
     merchant_password,
     merchant_key_prefix,
     return_url
   ) {
-    this.config_credentials = {
+    this.credentials = {
       root_url: root_url,
       merchant_username: merchant_username,
       merchant_password: merchant_password,
@@ -74,9 +74,9 @@ function Shurjopay() {
    */
   this.authentication = function (callback) {
     axios
-      .post(this.config_credentials.token_url, {
-        username: this.config_credentials.merchant_username,
-        password: this.config_credentials.merchant_password,
+      .post(this.credentials.token_url, {
+        username: this.credentials.merchant_username,
+        password: this.credentials.merchant_password,
       })
       .then(function (response) {
         _this.data.sp_token = {
@@ -112,11 +112,11 @@ function Shurjopay() {
       axios
         .post(data.execute_url, {
           ...checkout_params,
-          prefix: _this.config_credentials.merchant_key_prefix,
+          prefix: _this.credentials.merchant_key_prefix,
           store_id: data.store_id,
           token: data.token,
-          return_url: _this.config_credentials.return_url,
-          cancel_url: _this.config_credentials.return_url,
+          return_url: _this.credentials.return_url,
+          cancel_url: _this.credentials.return_url,
           currency: checkout_params.currency,
         })
         .then(function (response) {
@@ -140,7 +140,7 @@ function Shurjopay() {
     this.authentication((data) => {
       axios({
         method: "post",
-        url: this.config_credentials.verification_url,
+        url: this.credentials.verification_url,
         headers: {
           "content-type": "application/json",
           Authorization: data.token_type + " " + data.token,
@@ -168,7 +168,7 @@ function Shurjopay() {
     this.authentication((data) => {
       axios({
         method: "post",
-        url: this.config_credentials.payment_status_url,
+        url: this.credentials.payment_status_url,
         headers: {
           "content-type": "application/json",
           Authorization: data.token_type + " " + data.token,
