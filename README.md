@@ -50,7 +50,7 @@ require("dotenv").config();
 const shurjopay = require("shurjopay")();
 
 with(process.env){
-  shurjopay.shurjopay_config(
+  shurjopay.config(
     SP_ENDPOINT,
     SP_USERNAME,
     SP_PASSWORD,
