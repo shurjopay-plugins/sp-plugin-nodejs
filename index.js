@@ -44,7 +44,6 @@ function Shurjopay() {
     merchant_username,
     merchant_password,
     merchant_key_prefix,
-    default_currency,
     return_url
   ) {
     this.config_credentials = {
@@ -52,7 +51,6 @@ function Shurjopay() {
       merchant_username: merchant_username,
       merchant_password: merchant_password,
       merchant_key_prefix: merchant_key_prefix,
-      merchant_default_currency: default_currency,
       return_url: return_url,
 
       get token_url() {
@@ -119,9 +117,7 @@ function Shurjopay() {
           token: data.token,
           return_url: _this.config_credentials.return_url,
           cancel_url: _this.config_credentials.return_url,
-          currency:
-            checkout_params.currency ||
-            _this.config_credentials.merchant_default_currency,
+          currency: checkout_params.currency,
         })
         .then(function (response) {
           checkout_callback(response.data);

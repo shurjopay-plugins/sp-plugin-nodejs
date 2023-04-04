@@ -40,7 +40,6 @@ SP_ENDPOINT=https://sandbox.shurjopayment.com
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_PREFIX=SP
-DEFAULT_CURRENCY=BDT
 SP_RETURN_URL=https://<your.app.com>/shurjopay-response
 ```
 
@@ -56,7 +55,6 @@ with(process.env){
     SP_USERNAME,
     SP_PASSWORD,
     SP_PREFIX,
-    DEFAULT_CURRENCY,
     SP_RETURN_URL,
   );
 
