@@ -117,7 +117,6 @@ function Shurjopay() {
           token: data.token,
           return_url: _this.credentials.return_url,
           cancel_url: _this.credentials.return_url,
-          currency: checkout_params.currency,
         })
         .then(function (response) {
           checkout_callback(response.data);
