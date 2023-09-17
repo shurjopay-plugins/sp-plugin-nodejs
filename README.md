@@ -49,6 +49,10 @@ SP_RETURN_URL=https://<your.app.com>/shurjopay-response
 require("dotenv").config();
 const shurjopay = require("shurjopay")();
 
+// For ES6/nextjs need to add the following lines instead of constant declaration above
+import spfactory from 'shurjopay';
+const shurjopay = spfactory();
+
 with(process.env){
   shurjopay.config(
     SP_ENDPOINT,
